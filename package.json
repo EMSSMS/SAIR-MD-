@@ -1,7 +1,7 @@
 {
   "name": "sair-whatsapp-bot",
-  "version": "1.0.0",
-  "description": "WhatsApp pairing bot with web interface",
+  "version": "3.0.0",
+  "description": "SA!R MD Full Features WhatsApp Bot",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
@@ -9,8 +9,7 @@
   "dependencies": {
     "@whiskeysockets/baileys": "^6.7.0",
     "express": "^4.19.2",
-    "pino": "^9.0.0",
-    "qrcode": "^1.5.3"
+    "pino": "^9.0.0"
   },
   "engines": {
     "node": ">=18.x"
