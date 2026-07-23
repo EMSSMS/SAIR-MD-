@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SA!R MD - Advanced Pairing Panel</title>
+    <title>SA!R MD - Ultimate Bot Panel</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', sans-serif; }
@@ -27,7 +27,6 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
             border: 1px solid rgba(239, 68, 68, 0.3);
             overflow: hidden;
-            position: relative;
         }
 
         .page {
@@ -41,9 +40,7 @@
             overflow-y: auto;
         }
 
-        .page.active {
-            display: flex;
-        }
+        .page.active { display: flex; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(8px); }
@@ -51,154 +48,70 @@
         }
 
         .logo {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            object-fit: cover;
+            width: 75px; height: 75px; border-radius: 50%; object-fit: cover;
             border: 2px solid #ef4444;
             box-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
             margin-bottom: 12px;
         }
 
-        h2 {
-            font-size: 20px;
-            color: #fca5a5;
-            font-weight: 700;
-            margin-bottom: 6px;
-        }
-
-        p.subtitle {
-            font-size: 12px;
-            color: #a1a1aa;
-            margin-bottom: 16px;
-        }
+        h2 { font-size: 20px; color: #fca5a5; font-weight: 700; margin-bottom: 4px; }
+        p.subtitle { font-size: 12px; color: #a1a1aa; margin-bottom: 16px; }
 
         .card {
-            width: 100%;
-            background: rgba(35, 12, 20, 0.7);
+            width: 100%; background: rgba(35, 12, 20, 0.7);
             border: 1px solid rgba(239, 68, 68, 0.2);
-            border-radius: 14px;
-            padding: 14px;
-            margin-bottom: 14px;
-            text-align: left;
+            border-radius: 14px; padding: 14px; margin-bottom: 14px; text-align: left;
         }
 
-        .server-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .server-info h3 {
-            font-size: 14px;
-            color: #fff;
-            margin-bottom: 2px;
-        }
-
-        .server-info span {
-            font-size: 11px;
-            color: #a1a1aa;
-        }
+        .server-row { display: flex; justify-content: space-between; align-items: center; }
+        .server-info h3 { font-size: 14px; color: #fff; margin-bottom: 2px; }
+        .server-info span { font-size: 11px; color: #a1a1aa; }
 
         .active-badge {
-            background: rgba(34, 197, 94, 0.15);
-            border: 1px solid #22c55e;
-            color: #4ade80;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 600;
+            background: rgba(34, 197, 94, 0.15); border: 1px solid #22c55e;
+            color: #4ade80; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;
         }
 
-        .input-box {
-            width: 100%;
-            margin-bottom: 14px;
-            text-align: left;
-        }
-
-        .input-box label {
-            display: block;
-            font-size: 12px;
-            color: #fca5a5;
-            margin-bottom: 6px;
-            font-weight: 500;
-        }
-
+        .input-box { width: 100%; margin-bottom: 14px; text-align: left; }
+        .input-box label { display: block; font-size: 12px; color: #fca5a5; margin-bottom: 6px; font-weight: 500; }
+        
         .phone-wrapper {
-            background: rgba(30, 10, 18, 0.9);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            border-radius: 12px;
-            padding: 4px 12px;
-            display: flex;
-            align-items: center;
+            background: rgba(30, 10, 18, 0.9); border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 12px; padding: 4px 12px; display: flex; align-items: center;
         }
-
         .phone-wrapper input {
-            width: 100%;
-            background: transparent;
-            border: none;
-            padding: 10px 0;
-            color: #fff;
-            font-size: 15px;
-            outline: none;
+            width: 100%; background: transparent; border: none; padding: 10px 0; color: #fff; font-size: 15px; outline: none;
         }
 
-        .hint-text {
-            font-size: 10px;
-            color: #71717a;
-            margin-top: 4px;
-        }
+        .hint-text { font-size: 10px; color: #71717a; margin-top: 4px; }
 
         .action-btn {
-            width: 100%;
-            padding: 14px;
-            border-radius: 12px;
-            border: none;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-            text-align: center;
-            margin-bottom: 10px;
+            width: 100%; padding: 14px; border-radius: 12px; border: none;
+            font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.2s; text-align: center; margin-bottom: 10px;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #dc2626, #991b1b);
-            color: #fff;
+            background: linear-gradient(135deg, #dc2626, #991b1b); color: #fff;
             box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
         }
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-        }
+        .btn-primary:hover { background: linear-gradient(135deg, #ef4444, #dc2626); }
 
         .btn-secondary {
-            background: rgba(39, 39, 42, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #e4e4e7;
+            background: rgba(39, 39, 42, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); color: #e4e4e7;
         }
 
         .btn-code {
-            background: rgba(20, 83, 45, 0.4);
-            border: 1px solid #22c55e;
-            color: #4ade80;
-            font-family: monospace;
-            font-size: 20px;
-            letter-spacing: 2px;
-            display: none;
+            background: rgba(20, 83, 45, 0.4); border: 1px solid #22c55e;
+            color: #4ade80; font-family: monospace; font-size: 20px; letter-spacing: 2px; display: none;
         }
 
-        .footer {
-            text-align: center;
-            font-size: 10px;
-            color: #71717a;
-            margin-top: 10px;
-        }
+        .footer { text-align: center; font-size: 10px; color: #71717a; margin-top: 10px; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- PAGE 1: Welcome / Hub Select -->
+        <!-- PAGE 1 -->
         <div id="page1" class="page active">
             <img src="https://sair-whatsapp.edgeone.dev/1784805142223-clean.png" alt="SA!R Logo" class="logo">
             <h2>SA!R MD System</h2>
@@ -208,27 +121,26 @@
                 <div class="server-row">
                     <div class="server-info">
                         <h3>Server Hub 1</h3>
-                        <span>Status: Online & Ready</span>
+                        <span>Auto DM Link Feature Active</span>
                     </div>
-                    <div class="active-badge">Active</div>
+                    <div class="active-badge">Online</div>
                 </div>
             </div>
 
-            <div class="card" style="text-align: left; font-size: 12px; color: #d4d4d8;">
-                <strong style="color: #fca5a5; display:block; margin-bottom:4px;">Quick Instructions:</strong>
-                • No server deployment crashes.<br>
-                • Instant 8-digit secure code generation.<br>
-                • Full automated bot features integrated.
+            <div class="card" style="font-size: 12px; color: #d4d4d8;">
+                <strong style="color: #fca5a5; display:block; margin-bottom:4px;">Features Included:</strong>
+                • Real pairing code generation.<br>
+                • Auto Channel Link reply on user commands.
             </div>
 
-            <button class="action-btn btn-primary" onclick="goToPage(2)">Next: Enter Number</button>
+            <button class="action-btn btn-primary" onclick="goToPage(2)">Next: Pair Device</button>
         </div>
 
-        <!-- PAGE 2: Number Input & Code Generation -->
+        <!-- PAGE 2 -->
         <div id="page2" class="page">
             <img src="https://sair-whatsapp.edgeone.dev/1784805142223-clean.png" alt="SA!R Logo" class="logo">
             <h2>Device Pairing</h2>
-            <p class="subtitle">Generate your 8-digit WhatsApp code</p>
+            <p class="subtitle">Get your official WhatsApp code</p>
 
             <div class="input-box">
                 <label for="phoneNumber">WhatsApp Number</label>
@@ -238,7 +150,7 @@
                 <div class="hint-text">💡 Include country code without '+' (e.g. 923123456789)</div>
             </div>
 
-            <button class="action-btn btn-primary" id="genBtn" onclick="generatePairCode()">Generate 8-Digit Code</button>
+            <button class="action-btn btn-primary" id="genBtn" onclick="generatePairCode()">Get Pairing Code</button>
             <button class="action-btn btn-code" id="codeBtn" onclick="copyCode()"></button>
             <button class="action-btn btn-secondary" onclick="goToPage(1)">Back</button>
 
@@ -256,7 +168,7 @@
             document.getElementById('page' + pageNum).classList.add('active');
         }
 
-        function generatePairCode() {
+        async function generatePairCode() {
             const phone = document.getElementById('phoneNumber').value.trim();
             const genBtn = document.getElementById('genBtn');
             const codeBtn = document.getElementById('codeBtn');
@@ -266,22 +178,28 @@
                 return;
             }
 
-            genBtn.textContent = 'Generating...';
+            genBtn.textContent = 'Connecting to WhatsApp...';
             genBtn.disabled = true;
 
-            setTimeout(() => {
-                // Official 8-character alphanumeric code format matching WhatsApp requirements
-                const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-                let code = '';
-                for (let i = 0; i < 8; i++) {
-                    code += chars.charAt(Math.floor(Math.random() * chars.length));
-                }
-                generatedCode = code.slice(0, 4) + '-' + code.slice(4, 8);
+            try {
+                const response = await fetch(`/code?number=${encodeURIComponent(phone)}`);
+                const data = await response.json();
 
-                genBtn.style.display = 'none';
-                codeBtn.textContent = generatedCode;
-                codeBtn.style.display = 'block';
-            }, 1000);
+                if (data.code) {
+                    generatedCode = data.code;
+                    genBtn.style.display = 'none';
+                    codeBtn.textContent = generatedCode;
+                    codeBtn.style.display = 'block';
+                } else {
+                    alert(data.error || 'Failed to generate code.');
+                    genBtn.textContent = 'Get Pairing Code';
+                    genBtn.disabled = false;
+                }
+            } catch (err) {
+                alert('Network error or server timeout. Try again.');
+                genBtn.textContent = 'Get Pairing Code';
+                genBtn.disabled = false;
+            }
         }
 
         function copyCode() {
@@ -295,5 +213,4 @@
         }
     </script>
 </body>
-    </html>
-    
+</html>
