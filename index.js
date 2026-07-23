@@ -9,5 +9,5 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(PORT, () => {
-    console.log(`SA!R Bot server is running smoothly on port ${PORT}`);
+    console.log(`SA!R MD Server is running on port ${PORT}`);
 });
