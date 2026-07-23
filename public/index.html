@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SA!R Bot - Pairing System</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0b141a;
+            color: #e9edef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px;
+            background: #111b21;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            border: 1px solid #222d34;
+        }
+
+        .page {
+            display: none;
+            padding: 30px 24px;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .page.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 2px solid #00a884;
+            box-shadow: 0 0 15px rgba(0, 168, 132, 0.3);
+        }
+
+        h2 {
+            color: #00a884;
+            font-size: 22px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .notes-box {
+            width: 100%;
+            background: #202c33;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 24px;
+            text-align: left;
+            border-left: 4px solid #00a884;
+        }
+
+        .notes-box h3 {
+            font-size: 14px;
+            color: #8696a0;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .notes-list {
+            list-style: none;
+        }
+
+        .notes-list li {
+            font-size: 13px;
+            color: #d1d7db;
+            padding: 6px 0;
+            border-bottom: 1px solid #222d34;
+        }
+
+        .notes-list li:last-child {
+            border-bottom: none;
+        }
+
+        .btn {
+            background-color: #00a884;
+            color: #111b21;
+            border: none;
+            padding: 12px 24px;
+            font-size: 15px;
+            font-weight: 700;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background-color: #008f72;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .input-group {
+            width: 100%;
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            color: #8696a0;
+            margin-bottom: 6px;
+        }
+
+        .phone-input-wrapper {
+            display: flex;
+            background: #202c33;
+            border-radius: 6px;
+            border: 1px solid #222d34;
+            overflow: hidden;
+        }
+
+        .phone-input-wrapper input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            padding: 12px;
+            color: #e9edef;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .pair-result-box {
+            width: 100%;
+            background: #202c33;
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 16px;
+            display: none;
+            border: 1px dashed #00a884;
+        }
+
+        .pair-code-text {
+            font-family: monospace;
+            font-size: 18px;
+            color: #00a884;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- FIRST PAGE -->
+        <div id="page1" class="page active">
+            <img src="https://sair-whatsapp.edgeone.dev/1784805142223-clean.png" alt="SA!R Logo" class="logo">
+            <h2>SA!R Bot Interface</h2>
+            
+            <div class="notes-box">
+                <h3>System Notes [SA!R]</h3>
+                <ul class="notes-list">
+                    <li>1: Ensure your WhatsApp is updated to the latest version before linking.</li>
+                    <li>2: Keep your device connected to a stable internet connection during pairing.</li>
+                    <li>3: Do not share your generated pair code with anyone for security purposes.</li>
+                </ul>
+            </div>
+
+            <button class="btn" onclick="goToPage2()">Connect</button>
+        </div>
+
+        <!-- SECOND PAGE -->
+        <div id="page2" class="page">
+            <img src="https://sair-whatsapp.edgeone.dev/1784805142223-clean.png" alt="SA!R Logo" class="logo">
+            <h2>Link with Phone Number</h2>
+
+            <div class="input-group">
+                <label for="phoneNumber">Number:</label>
+                <div class="phone-input-wrapper">
+                    <input type="text" id="phoneNumber" placeholder="+923XXXXXXXXX">
+                </div>
+            </div>
+
+            <button class="btn" onclick="generatePairCode()" style="margin-bottom: 12px;" id="pairBtn">Pair Code</button>
+
+            <div id="pairResult" class="pair-result-box">
+                <span style="display:block; font-size:11px; color:#8696a0; margin-bottom:4px;">SHOW PAIR CODE</span>
+                <div id="codeDisplay" class="pair-code-text">Loading...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goToPage2() {
+            document.getElementById('page1').classList.remove('active');
+            document.getElementById('page2').classList.add('active');
+        }
+
+        async function generatePairCode() {
+            const phoneInput = document.getElementById('phoneNumber').value.trim();
+            const resultBox = document.getElementById('pairResult');
+            const codeDisplay = document.getElementById('codeDisplay');
+            const pairBtn = document.getElementById('pairBtn');
+
+            if (!phoneInput || phoneInput.length < 10) {
+                alert('Please enter a valid phone number with country code (e.g. 923XXXXXXXXX).');
+                return;
+            }
+
+            pairBtn.textContent = 'Generating...';
+            pairBtn.disabled = true;
+
+            try {
+                const response = await fetch(`/code?number=${encodeURIComponent(phoneInput)}`);
+                const data = await response.json();
+
+                if (data.code) {
+                    codeDisplay.textContent = data.code;
+                    resultBox.style.display = 'block';
+                } else {
+                    alert(data.error || 'Failed to generate code.');
+                }
+            } catch (err) {
+                alert('An error occurred. Check your network or server logs.');
+            } finally {
+                pairBtn.textContent = 'Pair Code';
+                pairBtn.disabled = false;
+            }
+        }
+    </script>
+</body>
+  </html>
+  
