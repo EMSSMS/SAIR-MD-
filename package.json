@@ -1,7 +1,7 @@
 {
   "name": "sair-whatsapp-bot",
-  "version": "3.0.0",
-  "description": "SA!R MD Full Features WhatsApp Bot",
+  "version": "4.0.0",
+  "description": "SA!R MD Ultimate WhatsApp Bot & Server Panel",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
