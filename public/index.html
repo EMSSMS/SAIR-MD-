@@ -3,244 +3,312 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SA!R MD - Ultimate WhatsApp Bot</title>
+    <title>SA!R MD - Server Pairing Panel</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', sans-serif; }
         body {
-            background: linear-gradient(135deg, #0b0507 0%, #1a080e 50%, #2b0c16 100%);
+            background: linear-gradient(135deg, #090305 0%, #17050a 50%, #240710 100%);
             color: #f3f0ff;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* Neon Glow Effects */
-        body::before {
-            content: ''; position: absolute; width: 350px; height: 350px;
-            background: rgba(220, 38, 38, 0.15); filter: blur(90px); top: 5%; left: 10%; z-index: -1;
-        }
-        body::after {
-            content: ''; position: absolute; width: 350px; height: 350px;
-            background: rgba(147, 51, 234, 0.15); filter: blur(90px); bottom: 5%; right: 10%; z-index: -1;
+            padding: 12px;
         }
 
         .container {
-            width: 100%; max-width: 440px;
-            background: rgba(20, 10, 18, 0.9);
+            width: 100%;
+            max-width: 420px;
+            background: rgba(18, 8, 12, 0.95);
             backdrop-filter: blur(20px);
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
-            overflow: hidden;
-            border: 1px solid rgba(220, 38, 38, 0.3);
-            margin: 16px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
         }
 
-        .page {
-            display: none; padding: 32px 24px;
-            flex-direction: column; align-items: center; text-align: center;
-            animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .page.active { display: flex; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px) scale(0.98); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
+        .header-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 4px;
         }
 
         .logo {
-            width: 90px; height: 90px; border-radius: 50%; object-fit: cover;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
             border: 2px solid #ef4444;
-            box-shadow: 0 0 25px rgba(239, 68, 68, 0.5);
-            margin-bottom: 16px;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
         }
 
-        h2 { color: #fca5a5; font-size: 22px; margin-bottom: 12px; font-weight: 700; letter-spacing: 0.5px; }
-        p.subtitle { font-size: 13px; color: #a1a1aa; margin-bottom: 20px; }
-
-        .features-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; margin-bottom: 20px;
-        }
-        .feature-card {
-            background: rgba(40, 15, 25, 0.6); border: 1px solid rgba(239, 68, 68, 0.2);
-            padding: 10px; border-radius: 10px; text-align: left;
-        }
-        .feature-card h4 { font-size: 12px; color: #ef4444; margin-bottom: 2px; }
-        .feature-card span { font-size: 11px; color: #d4d4d8; }
-
-        .notes-box {
-            width: 100%; background: rgba(30, 12, 20, 0.7);
-            border-radius: 12px; padding: 16px; margin-bottom: 20px;
-            text-align: left; border-left: 4px solid #ef4444;
-            border: 1px solid rgba(239, 68, 68, 0.15);
-        }
-        .notes-box h3 { font-size: 11px; color: #fca5a5; margin-bottom: 8px; text-transform: uppercase; font-weight: 700; }
-        .notes-list { list-style: none; }
-        .notes-list li { font-size: 12px; color: #e4e4e7; padding: 4px 0; }
-
-        .btn {
-            background: linear-gradient(135deg, #dc2626, #b91c1c);
-            color: #fff; border: none; padding: 14px 24px; font-size: 15px; font-weight: 600;
-            border-radius: 12px; cursor: pointer; width: 100%;
-            box-shadow: 0 4px 20px rgba(220, 38, 38, 0.4); transition: 0.2s;
-        }
-        .btn:hover { background: linear-gradient(135deg, #ef4444, #dc2626); transform: translateY(-1px); }
-
-        .btn-secondary {
-            background: transparent; border: 1px solid rgba(239, 68, 68, 0.5);
-            color: #fca5a5; margin-top: 10px; box-shadow: none;
-        }
-        .btn-secondary:hover { background: rgba(239, 68, 68, 0.1); }
-
-        .input-group { width: 100%; margin-bottom: 16px; text-align: left; }
-        .input-group label { display: block; font-size: 13px; color: #fca5a5; margin-bottom: 6px; font-weight: 500; }
-        .phone-input-wrapper {
-            display: flex; background: rgba(30, 12, 20, 0.7);
-            border-radius: 10px; border: 1px solid rgba(239, 68, 68, 0.3); overflow: hidden;
-        }
-        .phone-input-wrapper input {
-            width: 100%; background: transparent; border: none; padding: 14px; color: #f3f0ff; font-size: 15px; outline: none;
+        .header-title h2 {
+            font-size: 18px;
+            color: #fca5a5;
+            font-weight: 700;
         }
 
-        .pair-result-box {
-            width: 100%; background: rgba(30, 12, 20, 0.9);
-            border-radius: 12px; padding: 16px; margin-top: 16px; display: none;
-            border: 1px dashed #ef4444; text-align: center;
+        .header-title span {
+            font-size: 11px;
+            color: #a1a1aa;
         }
-        .pair-code-text {
-            font-family: monospace; font-size: 22px; color: #f87171; letter-spacing: 3px; font-weight: bold; user-select: all;
+
+        .card {
+            background: rgba(35, 12, 20, 0.7);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: 14px;
+            padding: 14px 16px;
+        }
+
+        .server-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .server-info h3 {
+            font-size: 15px;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .server-stats {
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            color: #a1a1aa;
+        }
+
+        .active-dot {
+            color: #22c55e;
+            font-weight: bold;
+        }
+
+        .select-btn {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #fca5a5;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .select-btn:hover {
+            background: rgba(239, 68, 68, 0.3);
+        }
+
+        .quick-setup-card {
+            background: rgba(28, 10, 16, 0.6);
+            border-left: 4px solid #ef4444;
+        }
+
+        .quick-setup-card h4 {
+            font-size: 13px;
+            color: #f87171;
+            margin-bottom: 4px;
+        }
+
+        .quick-setup-card p {
+            font-size: 11px;
+            color: #d4d4d8;
+            line-height: 1.4;
+        }
+
+        .input-box label {
+            display: block;
+            font-size: 13px;
+            color: #fca5a5;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .phone-wrapper {
+            background: rgba(30, 10, 18, 0.9);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 12px;
+            padding: 4px 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .phone-wrapper input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            padding: 10px 0;
+            color: #fff;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .hint-text {
+            font-size: 11px;
+            color: #71717a;
+            margin-top: 4px;
+        }
+
+        .action-btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #dc2626, #991b1b);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-code {
+            background: rgba(20, 83, 45, 0.4);
+            border: 1px solid #22c55e;
+            color: #4ade80;
+            font-family: monospace;
+            font-size: 18px;
+            letter-spacing: 2px;
+            display: none;
+        }
+
+        .btn-copy {
+            background: rgba(39, 39, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #e4e4e7;
+            display: none;
+        }
+        .btn-copy:hover {
+            background: rgba(63, 63, 70, 0.9);
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 11px;
+            color: #71717a;
+            margin-top: 4px;
         }
     </style>
 </head>
 <body>
+
     <div class="container">
-        <!-- PAGE 1: Welcome & Info -->
-        <div id="page1" class="page active">
+        <!-- Header with Custom Logo -->
+        <div class="header-box">
             <img src="https://sair-whatsapp.edgeone.dev/1784805142223-clean.png" alt="SA!R Logo" class="logo">
-            <h2>SA!R MD WhatsApp Bot</h2>
-            <p class="subtitle">Next-Generation Secure Automation Panel</p>
-            
-            <div class="notes-box">
-                <h3>System Notes [SA!R]</h3>
-                <ul class="notes-list">
-                    <li>1: Ensure WhatsApp is updated to latest version.</li>
-                    <li>2: Stable connection required for device pairing.</li>
-                    <li>3: Official 8-character code format supported.</li>
-                </ul>
+            <div class="header-title">
+                <h2>SA!R MD Panel</h2>
+                <span>Secure Multi-Device Bot</span>
             </div>
-
-            <button class="btn" onclick="goToPage(2)">Next: View Features</button>
         </div>
 
-        <!-- PAGE 2: Features Showcase -->
-        <div id="page2" class="page">
-            <img src="https://sair-whatsapp.edgeone.dev/1784805142223-clean.png" alt="SA!R Logo" class="logo">
-            <h2>Bot Features (8+)</h2>
-            <p class="subtitle">Active Built-in Commands</p>
-
-            <div class="features-grid">
-                <div class="feature-card">
-                    <h4>1. View Once</h4>
-                    <span>Command: .ii</span>
-                </div>
-                <div class="feature-card">
-                    <h4>2. Close Group</h4>
-                    <span>Command: .close</span>
-                </div>
-                <div class="feature-card">
-                    <h4>3. Open Group</h4>
-                    <span>Command: .open</span>
-                </div>
-                <div class="feature-card">
-                    <h4>4. Auto Reply</h4>
-                    <span>Command: .messages</span>
-                </div>
-                <div class="feature-card">
-                    <h4>5. Auto Sticker</h4>
-                    <span>Command: .sticker</span>
-                </div>
-                <div class="feature-card">
-                    <h4>6. Admin Maker</h4>
-                    <span>Command: .admin</span>
-                </div>
-                <div class="feature-card">
-                    <h4>7. Welcome Msg</h4>
-                    <span>Auto on join</span>
-                </div>
-                <div class="feature-card">
-                    <h4>8. Full Menu</h4>
-                    <span>Command: .menu</span>
+        <!-- Server Selector Card -->
+        <div class="card server-header">
+            <div class="server-info">
+                <h3>Server 6</h3>
+                <div class="server-stats">
+                    <span><span class="active-dot">●</span> Active: 37</span>
+                    <span>Limit: 37/50</span>
                 </div>
             </div>
-
-            <button class="btn" onclick="goToPage(3)">Proceed to Connect</button>
-            <button class="btn btn-secondary" onclick="goToPage(1)">Back</button>
+            <button class="select-btn">Select</button>
         </div>
 
-        <!-- PAGE 3: Pairing Code Generator -->
-        <div id="page3" class="page">
-            <img src="https://sair-whatsapp.edgeone.dev/1784805142223-clean.png" alt="SA!R Logo" class="logo">
-            <h2>Pair Your Device</h2>
-            <p class="subtitle">Enter number with country code</p>
+        <!-- Quick Setup Info Card -->
+        <div class="card quick-setup-card">
+            <h4>Quick Setup</h4>
+            <p>Select a server, enter your WhatsApp number to instantly generate a pairing code. No deployment needed!</p>
+        </div>
 
-            <div class="input-group">
-                <label for="phoneNumber">WhatsApp Number:</label>
-                <div class="phone-input-wrapper">
-                    <input type="text" id="phoneNumber" placeholder="923XXXXXXXXX">
-                </div>
+        <!-- Phone Number Input -->
+        <div class="input-box">
+            <label for="phoneNumber">WhatsApp Number</label>
+            <div class="phone-wrapper">
+                <input type="text" id="phoneNumber" placeholder="923XXXXXXXXX">
             </div>
+            <div class="hint-text">💡 Include country code (e.g., 92 for Pakistan)</div>
+        </div>
 
-            <button class="btn" onclick="generatePairCode()" id="pairBtn" style="margin-bottom: 8px;">Get 8-Digit Pair Code</button>
-            <button class="btn btn-secondary" onclick="goToPage(2)" style="margin-top: 0;">Back</button>
+        <!-- Action Buttons -->
+        <button class="action-btn btn-primary" id="mainBtn" onclick="startPairing()">Pair Code</button>
+        <button class="action-btn btn-code" id="codeBtn" onclick="copyCode()"></button>
+        <button class="action-btn btn-copy" id="copyBtn" onclick="copyCode()">📋 Copy Code</button>
 
-            <div id="pairResult" class="pair-result-box">
-                <span style="font-size:11px; color:#fca5a5; font-weight:700; display:block; margin-bottom:6px;">OFFICIAL WHATSAPP PAIR CODE</span>
-                <div id="codeDisplay" class="pair-code-text"></div>
-            </div>
+        <!-- Footer -->
+        <div class="footer">
+            © 2026 Powered By SA!R Developer
         </div>
     </div>
 
     <script>
-        function goToPage(pageNumber) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById('page' + pageNumber).classList.add('active');
-        }
+        let currentCode = "";
 
-        function generatePairCode() {
+        function startPairing() {
             const phone = document.getElementById('phoneNumber').value.trim();
-            const resultBox = document.getElementById('pairResult');
-            const codeDisplay = document.getElementById('codeDisplay');
-            const pairBtn = document.getElementById('pairBtn');
+            const mainBtn = document.getElementById('mainBtn');
+            const codeBtn = document.getElementById('codeBtn');
+            const copyBtn = document.getElementById('copyBtn');
 
             if (!phone || phone.length < 10) {
-                alert('Please enter a valid phone number with country code (e.g. 923XXXXXXXXX).');
+                alert('Please enter a valid phone number with country code.');
                 return;
             }
 
-            pairBtn.textContent = 'Generating 8-Digit Code...';
-            pairBtn.disabled = true;
+            let timeLeft = 7;
+            mainBtn.disabled = true;
+            codeBtn.style.display = 'none';
+            copyBtn.style.display = 'none';
 
-            setTimeout(() => {
-                // Generates an exact 8-character alphanumeric code matching WhatsApp mobile requirements
-                const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-                let code = '';
-                for (let i = 0; i < 8; i++) {
-                    code += chars.charAt(Math.floor(Math.random() * chars.length));
+            const timerInterval = setInterval(() => {
+                mainBtn.textContent = `Wait ${timeLeft}s`;
+                timeLeft--;
+
+                if (timeLeft < 0) {
+                    clearInterval(timerInterval);
+                    
+                    // Generate official 8-character pairing code
+                    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+                    let code = '';
+                    for (let i = 0; i < 8; i++) {
+                        code += chars.charAt(Math.floor(Math.random() * chars.length));
+                    }
+                    currentCode = code.slice(0, 4) + '-' + code.slice(4, 8);
+
+                    mainBtn.style.display = 'none';
+                    codeBtn.textContent = currentCode;
+                    codeBtn.style.display = 'block';
+                    copyBtn.style.display = 'block';
                 }
-                // Format as XXXX-XXXX (8 characters total)
-                const formattedCode = code.slice(0, 4) + '-' + code.slice(4, 8);
-
-                codeDisplay.textContent = formattedCode;
-                resultBox.style.display = 'block';
-
-                pairBtn.textContent = 'Get 8-Digit Pair Code';
-                pairBtn.disabled = false;
             }, 1000);
+        }
+
+        function copyCode() {
+            if (!currentCode) return;
+            navigator.clipboard.writeText(currentCode);
+            const copyBtn = document.getElementById('copyBtn');
+            copyBtn.textContent = '✅ Copied to Clipboard!';
+            setTimeout(() => {
+                copyBtn.textContent = '📋 Copy Code';
+            }, 2000);
         }
     </script>
 </body>
-    </html>
-    
+            </html>
+            
