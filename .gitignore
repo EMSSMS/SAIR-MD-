@@ -1,5 +1,4 @@
 node_modules/
-temp_sessions/
 auth_info_baileys/
 .env
 .DS_Store
