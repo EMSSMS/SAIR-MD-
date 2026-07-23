@@ -24,7 +24,7 @@
         .phone-input-wrapper { display: flex; background: rgba(30, 20, 60, 0.6); border-radius: 10px; border: 1px solid rgba(147, 51, 234, 0.3); overflow: hidden; }
         .phone-input-wrapper input { width: 100%; background: transparent; border: none; padding: 14px; color: #f3f0ff; font-size: 15px; outline: none; }
         .pair-result-box { width: 100%; background: rgba(30, 20, 60, 0.8); border-radius: 10px; padding: 16px; margin-top: 16px; display: none; border: 1px dashed #a855f7; }
-        .pair-code-text { font-family: monospace; font-size: 20px; color: #e9d5ff; letter-spacing: 3px; font-weight: bold; }
+        .pair-code-text { font-family: monospace; font-size: 20px; color: #e9d5ff; letter-spacing: 3px; font-weight: bold; user-select: all; }
     </style>
 </head>
 <body>
@@ -55,8 +55,8 @@
             </div>
             <button class="btn" onclick="generatePairCode()" id="pairBtn" style="margin-bottom: 8px;">Pair Code</button>
             <div id="pairResult" class="pair-result-box">
-                <span style="font-size:11px; color:#c084fc; font-weight:700; display:block; margin-bottom:4px;">YOUR PAIR CODE</span>
-                <div id="codeDisplay" class="pair-code-text">SAIR-8821-X</div>
+                <span style="font-size:11px; color:#c084fc; font-weight:700; display:block; margin-bottom:4px;">YOUR REAL PAIR CODE</span>
+                <div id="codeDisplay" class="pair-code-text"></div>
             </div>
         </div>
     </div>
@@ -65,22 +65,36 @@
             document.getElementById('page1').classList.remove('active');
             document.getElementById('page2').classList.add('active');
         }
-        function generatePairCode() {
+        async function generatePairCode() {
             const phone = document.getElementById('phoneNumber').value.trim();
+            const resultBox = document.getElementById('pairResult');
+            const codeDisplay = document.getElementById('codeDisplay');
+            const pairBtn = document.getElementById('pairBtn');
+
             if (!phone || phone.length < 10) {
                 alert('Please enter a valid phone number with country code.');
                 return;
             }
-            const btn = document.getElementById('pairBtn');
-            btn.textContent = 'Generating...';
-            btn.disabled = true;
-            setTimeout(() => {
-                const code = 'SAIR-' + Math.floor(1000 + Math.random() * 9000) + '-' + Math.random().toString(36).substring(2, 5).toUpperCase();
-                document.getElementById('codeDisplay').textContent = code;
-                document.getElementById('pairResult').style.display = 'block';
-                btn.textContent = 'Pair Code';
-                btn.disabled = false;
-            }, 1000);
+
+            pairBtn.textContent = 'Requesting Code...';
+            pairBtn.disabled = true;
+
+            try {
+                const response = await fetch(`/code?number=${encodeURIComponent(phone)}`);
+                const data = await response.json();
+
+                if (data.code) {
+                    codeDisplay.textContent = data.code;
+                    resultBox.style.display = 'block';
+                } else {
+                    alert(data.error || 'Failed to fetch pairing code.');
+                }
+            } catch (err) {
+                alert('Network error or server timeout. Please try again.');
+            } finally {
+                pairBtn.textContent = 'Pair Code';
+                pairBtn.disabled = false;
+            }
         }
     </script>
 </body>
