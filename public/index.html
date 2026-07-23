@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SA!R MD - Server Pairing Panel</title>
+    <title>SA!R MD - Ultimate Bot Panel</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', sans-serif; }
@@ -19,32 +19,33 @@
 
         .container {
             width: 100%;
-            max-width: 420px;
+            max-width: 440px;
             background: rgba(18, 8, 12, 0.95);
             backdrop-filter: blur(20px);
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
-            border: 1px solid rgba(239, 68, 68, 0.25);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(239, 68, 68, 0.3);
             padding: 20px;
             display: flex;
             flex-direction: column;
             gap: 14px;
+            max-height: 95vh;
+            overflow-y: auto;
         }
 
         .header-box {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 4px;
         }
 
         .logo {
-            width: 50px;
-            height: 50px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid #ef4444;
-            box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
         }
 
         .header-title h2 {
@@ -62,7 +63,7 @@
             background: rgba(35, 12, 20, 0.7);
             border: 1px solid rgba(239, 68, 68, 0.2);
             border-radius: 14px;
-            padding: 14px 16px;
+            padding: 12px 14px;
         }
 
         .server-header {
@@ -72,15 +73,15 @@
         }
 
         .server-info h3 {
-            font-size: 15px;
+            font-size: 14px;
             color: #fff;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
 
         .server-stats {
             display: flex;
-            gap: 12px;
-            font-size: 12px;
+            gap: 10px;
+            font-size: 11px;
             color: #a1a1aa;
         }
 
@@ -93,39 +94,53 @@
             background: rgba(239, 68, 68, 0.15);
             border: 1px solid rgba(239, 68, 68, 0.4);
             color: #fca5a5;
-            padding: 8px 14px;
+            padding: 6px 12px;
             border-radius: 8px;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             cursor: pointer;
-            transition: 0.2s;
-        }
-        .select-btn:hover {
-            background: rgba(239, 68, 68, 0.3);
         }
 
-        .quick-setup-card {
-            background: rgba(28, 10, 16, 0.6);
-            border-left: 4px solid #ef4444;
+        /* 8 Services Grid */
+        .services-section h4 {
+            font-size: 12px;
+            color: #fca5a5;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .quick-setup-card h4 {
-            font-size: 13px;
-            color: #f87171;
-            margin-bottom: 4px;
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
         }
 
-        .quick-setup-card p {
+        .service-badge {
+            background: rgba(25, 8, 14, 0.8);
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            padding: 8px;
+            border-radius: 8px;
             font-size: 11px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-badge strong {
+            color: #ef4444;
+            font-size: 12px;
+        }
+
+        .service-badge span {
             color: #d4d4d8;
-            line-height: 1.4;
+            font-size: 10px;
         }
 
         .input-box label {
             display: block;
-            font-size: 13px;
+            font-size: 12px;
             color: #fca5a5;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             font-weight: 500;
         }
 
@@ -144,22 +159,22 @@
             border: none;
             padding: 10px 0;
             color: #fff;
-            font-size: 15px;
+            font-size: 14px;
             outline: none;
         }
 
         .hint-text {
-            font-size: 11px;
+            font-size: 10px;
             color: #71717a;
-            margin-top: 4px;
+            margin-top: 3px;
         }
 
         .action-btn {
             width: 100%;
-            padding: 14px;
+            padding: 12px;
             border-radius: 12px;
             border: none;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: 0.2s;
@@ -195,46 +210,75 @@
             color: #e4e4e7;
             display: none;
         }
-        .btn-copy:hover {
-            background: rgba(63, 63, 70, 0.9);
-        }
 
         .footer {
             text-align: center;
-            font-size: 11px;
+            font-size: 10px;
             color: #71717a;
-            margin-top: 4px;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- Header with Custom Logo -->
+        <!-- Header -->
         <div class="header-box">
             <img src="https://sair-whatsapp.edgeone.dev/1784805142223-clean.png" alt="SA!R Logo" class="logo">
             <div class="header-title">
                 <h2>SA!R MD Panel</h2>
-                <span>Secure Multi-Device Bot</span>
+                <span>Connected & Secure Bot System</span>
             </div>
         </div>
 
-        <!-- Server Selector Card -->
+        <!-- Server Selector -->
         <div class="card server-header">
             <div class="server-info">
-                <h3>Server 6</h3>
+                <h3>Server 1 (Primary Hub)</h3>
                 <div class="server-stats">
-                    <span><span class="active-dot">●</span> Active: 37</span>
-                    <span>Limit: 37/50</span>
+                    <span><span class="active-dot">●</span> Active: 48</span>
+                    <span>Limit: 48/50</span>
                 </div>
             </div>
-            <button class="select-btn">Select</button>
+            <button class="select-btn">Active</button>
         </div>
 
-        <!-- Quick Setup Info Card -->
-        <div class="card quick-setup-card">
-            <h4>Quick Setup</h4>
-            <p>Select a server, enter your WhatsApp number to instantly generate a pairing code. No deployment needed!</p>
+        <!-- 1 to 8 Built-in Services Showcase -->
+        <div class="card services-section">
+            <h4>Built-in Bot Services (1 - 8)</h4>
+            <div class="services-grid">
+                <div class="service-badge">
+                    <strong>1. View Once</strong>
+                    <span>Command: .ii</span>
+                </div>
+                <div class="service-badge">
+                    <strong>2. Close Group</strong>
+                    <span>Command: .close</span>
+                </div>
+                <div class="service-badge">
+                    <strong>3. Open Group</strong>
+                    <span>Command: .open</span>
+                </div>
+                <div class="service-badge">
+                    <strong>4. Auto Reply</strong>
+                    <span>Command: .messages</span>
+                </div>
+                <div class="service-badge">
+                    <strong>5. Auto Sticker</strong>
+                    <span>Command: .sticker</span>
+                </div>
+                <div class="service-badge">
+                    <strong>6. Make Admin</strong>
+                    <span>Command: .admin</span>
+                </div>
+                <div class="service-badge">
+                    <strong>7. Welcome Msg</strong>
+                    <span>Auto on Join</span>
+                </div>
+                <div class="service-badge">
+                    <strong>8. Command Menu</strong>
+                    <span>Command: .menu</span>
+                </div>
+            </div>
         </div>
 
         <!-- Phone Number Input -->
@@ -243,24 +287,23 @@
             <div class="phone-wrapper">
                 <input type="text" id="phoneNumber" placeholder="923XXXXXXXXX">
             </div>
-            <div class="hint-text">💡 Include country code (e.g., 92 for Pakistan)</div>
+            <div class="hint-text">💡 Include country code without '+' (e.g. 923123456789)</div>
         </div>
 
-        <!-- Action Buttons -->
-        <button class="action-btn btn-primary" id="mainBtn" onclick="startPairing()">Pair Code</button>
+        <!-- Buttons -->
+        <button class="action-btn btn-primary" id="mainBtn" onclick="requestPairCode()">Get Real Pair Code</button>
         <button class="action-btn btn-code" id="codeBtn" onclick="copyCode()"></button>
-        <button class="action-btn btn-copy" id="copyBtn" onclick="copyCode()">📋 Copy Code</button>
+        <button class="action-btn btn-copy" id="copyBtn" onclick="copyCode()">📋 Copy Pair Code</button>
 
-        <!-- Footer -->
         <div class="footer">
-            © 2026 Powered By SA!R Developer
+            © 2026 Powered By SA!R Developer | All Rights Reserved
         </div>
     </div>
 
     <script>
-        let currentCode = "";
+        let fetchedCode = "";
 
-        function startPairing() {
+        async function requestPairCode() {
             const phone = document.getElementById('phoneNumber').value.trim();
             const mainBtn = document.getElementById('mainBtn');
             const codeBtn = document.getElementById('codeBtn');
@@ -271,44 +314,43 @@
                 return;
             }
 
-            let timeLeft = 7;
             mainBtn.disabled = true;
+            mainBtn.textContent = 'Connecting to WhatsApp...';
             codeBtn.style.display = 'none';
             copyBtn.style.display = 'none';
 
-            const timerInterval = setInterval(() => {
-                mainBtn.textContent = `Wait ${timeLeft}s`;
-                timeLeft--;
+            try {
+                const response = await fetch(`/code?number=${encodeURIComponent(phone)}`);
+                const data = await response.json();
 
-                if (timeLeft < 0) {
-                    clearInterval(timerInterval);
-                    
-                    // Generate official 8-character pairing code
-                    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-                    let code = '';
-                    for (let i = 0; i < 8; i++) {
-                        code += chars.charAt(Math.floor(Math.random() * chars.length));
-                    }
-                    currentCode = code.slice(0, 4) + '-' + code.slice(4, 8);
-
+                if (data.code) {
+                    fetchedCode = data.code;
                     mainBtn.style.display = 'none';
-                    codeBtn.textContent = currentCode;
+                    codeBtn.textContent = fetchedCode;
                     codeBtn.style.display = 'block';
                     copyBtn.style.display = 'block';
+                } else {
+                    alert(data.error || 'Failed to get code. Try again.');
+                    mainBtn.disabled = false;
+                    mainBtn.textContent = 'Get Real Pair Code';
                 }
-            }, 1000);
+            } catch (err) {
+                alert('Server connection error. Please check your Railway logs.');
+                mainBtn.disabled = false;
+                mainBtn.textContent = 'Get Real Pair Code';
+            }
         }
 
         function copyCode() {
-            if (!currentCode) return;
-            navigator.clipboard.writeText(currentCode);
+            if (!fetchedCode) return;
+            navigator.clipboard.writeText(fetchedCode);
             const copyBtn = document.getElementById('copyBtn');
             copyBtn.textContent = '✅ Copied to Clipboard!';
             setTimeout(() => {
-                copyBtn.textContent = '📋 Copy Code';
+                copyBtn.textContent = '📋 Copy Pair Code';
             }, 2000);
         }
     </script>
 </body>
-            </html>
-            
+    </html>
+                                             
